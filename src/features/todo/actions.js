@@ -36,15 +36,16 @@ export const getTodos = () => async (dispatch) => {
 //     payload: { id },
 //   };
 // };
-export const toggleTodo = (id, completed) => async (dispatch) => {
+export const toggleTodo = (todo) => async (dispatch) => {
   try {
-    const todo = { completed };
     const res = await apiService.put(`/todos/${todo.id}`, {
       ...todo,
       completed: !todo.completed,
     });
-
-    dispatch({ type: TOGGLE_TODO, payload: { id, completed } });
+    dispatch({
+      type: TOGGLE_TODO,
+      payload: { id: todo.id },
+    });
   } catch (error) {
     console.log(error);
   }
